@@ -17,7 +17,7 @@ function TrackersPage({trackersData, removeTracker, setData}) {
 	}
 
 	const trackers = trackersData.map((data) => {
-		return <Tracker data={data} id={data.data.id} focusedID={trackerFocused} handleFocusClick={handleTrackerFocus} handleCloseClick={removeTracker} refreshData={refreshData}/>
+		return <Tracker data={data} id={data.data.id} key={data.data.id} focusedID={trackerFocused} handleFocusClick={handleTrackerFocus} handleCloseClick={removeTracker} refreshData={refreshData}/>
 	})
 
 	return (
