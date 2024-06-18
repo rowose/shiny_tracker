@@ -1,4 +1,4 @@
-import { useEffect, useLayoutEffect, useRef, useState } from "react";
+import { useLayoutEffect, useRef, useState } from "react";
 import Draggable from "react-draggable";
 import { FaGear, FaLock, FaLockOpen, FaTrashCan, FaEye, FaEyeSlash } from "react-icons/fa6";
 import Dropdown from "./Dropdown";
@@ -20,7 +20,7 @@ function Tracker ({data, id, focusedID, handleFocusClick, handleCloseClick, refr
 		data.locked = lockPosition;
 		refreshData();
 
-		if (id == focusedID)
+		if (id === focusedID)
 			window.addEventListener("keydown", handleKeyPress, true);
 
 		return () => window.removeEventListener("keydown", handleKeyPress, true);

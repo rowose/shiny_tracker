@@ -1,6 +1,6 @@
 import TrackersPage from "./pages/TrackersPage"
 import Navbar from "./components/Navbar";
-import { useEffect, useLayoutEffect, useState } from "react";
+import { useLayoutEffect, useState } from "react";
 
 function App() {
 	const [trackerDataList, setTrackerDataList] = useState([]);
@@ -40,7 +40,7 @@ function App() {
 
 	const removeTracker = (id) => {
 		setTrackerDataList(trackerDataList.filter((tracker) => {
-			if (tracker.data.id != id)
+			if (tracker.data.id !== id)
 				return {data: tracker.data, count: tracker.count, poisition: tracker.position};
 			return ;
 		}
