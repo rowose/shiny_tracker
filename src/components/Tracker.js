@@ -109,6 +109,10 @@ function Tracker ({data, id, focusedID, handleFocusClick, handleCloseClick, refr
 			setPosition({ x: ref.current.getBoundingClientRect().x, y: ref.current.getBoundingClientRect().y })
 	}
 
+	const handleDragStop = () => {
+		draggableProps = {...draggableProps, handle: "none"};
+	};
+
 	const handleDropdownChange = (value) => {
 		setDropdownValue(value);
 	}
@@ -120,13 +124,13 @@ function Tracker ({data, id, focusedID, handleFocusClick, handleCloseClick, refr
 	if (lockPosition)
 		draggableProps = {...draggableProps, handle:"none"};
 	else if (!lockPosition)
-		draggableProps = { ...draggableProps, onDrag: handleDrag };
+		draggableProps = { ...draggableProps, onDrag: handleDrag, onStop: handleDragStop};
 
 	return (
 		<Draggable {...draggableProps}>
-			<div ref={ref} className="aspect-[4/5] min-w-[280px] min-h-[310px] w-[12%] absolute flex flex-col">
+			<div ref={ref} className="aspect-[4/5] lg:min-w-[280px] lg:min-h-[310px] lg:w-[12%] absolute flex flex-col">
 				<div className="w-full h-[10%] bg-slate-500 rounded-t-lg flex flex-row items-center justify-end">
-					<p className="text-white w-full pl-[10px] text-[0.8vw] pointer-events-none">{(data.data.name.charAt(0).toUpperCase() + data.data.name.slice(1)).split('-')[0] + " - " + data.data.id}</p>
+					<p className="text-white w-full pl-[10px] lg:text-[0.8vw] text-[3vw] pointer-events-none">{(data.data.name.charAt(0).toUpperCase() + data.data.name.slice(1)).split('-')[0] + " - " + data.data.id}</p>
 					{lockPosition ? <FaLock className="text-yellow-500 h-[30px] w-[30px] mx-[1%] cursor-pointer hover:scale-110 transition-transform duration-100" onClick={handleClickLock}/>
 						: <FaLockOpen className="text-yellow-500 h-[30px] w-[30px] mx-[1%] cursor-pointer hover:scale-110 transition-transform duration-100" onClick={handleClickLock} />}
 					<FaGear className="text-blue-500 h-[30px] w-[30px] mx-[1%] cursor-pointer hover:scale-110 transition-transform duration-100" onClick={handeClickOptions}/>
@@ -139,22 +143,22 @@ function Tracker ({data, id, focusedID, handleFocusClick, handleCloseClick, refr
 						<div className="w-full h-full">
 							<div className="w-full h-[85%] bg-no-repeat bg-center bg-contain z-0 scale-110 pointer-events-none origin-bottom" style={{ backgroundImage: `url(${dropdownValue ? dropdownValue.value : data?.data?.sprites?.other?.showdown.front_shiny}` }}></div>
 							<div className="w-full flex flex-row text-white">
-								<button className="text-5xl z-10 hover:scale-110 transition-transform duration-100" onClick={() => handleClick(increment * -1)}>-</button>
-								<p className="text-white w-full text-5xl text-center z-10 pointer-events-none">{count}</p>
-								<button className="text-5xl z-10 hover:scale-110 transition-transform duration-100" onClick={() => handleClick(increment)}>+</button>
+								<button className="lg:text-5xl text-[6vw] z-10 hover:scale-110 transition-transform duration-100" onClick={() => handleClick(increment * -1)}>-</button>
+								<p className="text-white w-full lg:text-5xl text-[6vw] text-center z-10 pointer-events-none">{count}</p>
+								<button className="lg:text-5xl text-[6vw] z-10 hover:scale-110 transition-transform duration-100" onClick={() => handleClick(increment)}>+</button>
 							</div>
 						</div> :
 						<div className="w-full h-full flex flex-col justify-start">
-							<label className="text-white flex flex-row justify-between">
-								Increment :
-								<input type="number" value={increment} onChange={handleChangeIncrement} className="ml-[5%] bg-transparent border-2 border-white rounded-lg text-center outline-none hover:bg-white focus:bg-white hover:text-black focus:text-black transition-color duration-300"/>
+							<label className="text-white flex flex-row justify-between w-full h-[10%]">
+								<p className="lg:text-[0.7vw] text-[3vw] w-[33%]">Increment :</p>
+								<input type="number" value={increment} onChange={handleChangeIncrement} className="ml-[5%] w-[65%] bg-transparent border-2 border-white rounded-lg text-center outline-none hover:bg-white focus:bg-white hover:text-black focus:text-black transition-color duration-300"/>
 							</label>
-							<label className="text-white flex flex-row justify-between">
-								Count :
-								<input type="number" value={count} onChange={handleChangeCountMenuOptions} className="ml-[5%] bg-transparent border-2 border-white rounded-lg text-center outline-none hover:bg-white focus:bg-white hover:text-black focus:text-black transition-color duration-300" />
+							<label className="text-white flex flex-row justify-between w-full h-[10%]">
+								<p className="lg:text-[0.7vw] text-[3vw] w-[33%]">Count :</p>
+								<input type="number" value={count} onChange={handleChangeCountMenuOptions} className="ml-[5%] w-[65%] bg-transparent border-2 border-white rounded-lg text-center outline-none hover:bg-white focus:bg-white hover:text-black focus:text-black transition-color duration-300" />
 							</label>
-							<label className="text-white flex flex-row justify-between">
-								Sprite :
+							<label className="text-white flex flex-row justify-between w-full h-[10%]">
+								<p className="lg:text-[0.7vw] text-[3vw] w-[33%]">Sprite :</p>
 								<div className="w-[65%] ml-[5%] bg-transparent border-2 border-white rounded-lg">
 									<Dropdown options={getDropdownOptions(data)} value={dropdownValue} onChange={handleDropdownChange}/>
 								</div>
