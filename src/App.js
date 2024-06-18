@@ -23,7 +23,7 @@ function App() {
 		const response = await fetch('https://pokeapi.co/api/v2/pokemon/' + pokemon);
 		const data = await response.json();
 
-		setTrackerDataList([...trackerDataList, {data: data, count: 0, position: {x: 0, y: 0}}]);
+		setTrackerDataList([...trackerDataList, {data: data, count: 0, position: {x: 0, y: 0}, sprite: null, locked: false}]);
 	}
 
 	const getData = () => {

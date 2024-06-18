@@ -31,7 +31,7 @@ function Dropdown({options, value, onChange}) {
 
 	const mappedList = options?.map((option) => {
 		return (
-			<div className="hover:bg-[#ffc000]/30 rounded cursor-pointer p-1" onClick={() => handleOptionClick(option)} key={option.value}>
+			<div className="hover:bg-black/30 rounded cursor-pointer p-1" onClick={() => handleOptionClick(option)} key={option.value}>
 				{option.label}
 			</div>);
 	});
@@ -46,7 +46,7 @@ function Dropdown({options, value, onChange}) {
 		isOpen ? "opacity-100 max-h-[9999px]" : "opacity-0 max-h-0"
 	)
 
-	return <div ref={divEl} className="w-full relative">
+	return <div ref={divEl} className="w-full relative px-1 outline-none hover:bg-white focus:bg-white hover:text-black focus:text-black transition-color duration-300">
 		<div 
 			className="flex justify-between items-center cursor-pointer" 
 			onClick={() => handleClick(isOpen)}
