@@ -1,8 +1,10 @@
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import Draggable from "react-draggable";
 import { FaGear, FaLock, FaLockOpen, FaTrashCan, FaEye, FaEyeSlash } from "react-icons/fa6";
+import Dropdown from "./Dropdown";
 
 function Tracker ({data, id, focusedID, handleFocusClick, handleCloseClick, refreshData}) {
+	const [dropdownValue, setDropdownValue] = useState();
 	const [count, setCount] = useState(data.count);
 	const [position, setPosition] = useState(data.position);
 	const [increment, setIncrement] = useState(1);
@@ -21,6 +23,54 @@ function Tracker ({data, id, focusedID, handleFocusClick, handleCloseClick, refr
 
 		return () => window.removeEventListener("keydown", handleKeyPress, true);
 	}, [count, focusedID, position])
+
+	const getDropdownOptions = ((data) => {
+		let ret = [];
+
+		if (data.data.id <= 151)
+		{
+			if (data?.data?.sprites?.versions["generation-i"]["red-blue"]?.front_transparent)
+				ret = [...ret, { label: "Red/Blue", value: data?.data?.sprites?.versions["generation-i"]["red-blue"]?.front_transparent }];
+			if (data?.data?.sprites?.versions["generation-i"]["yellow"]?.front_transparent)
+				ret = [...ret, { label: "Yellow", value: data?.data?.sprites?.versions["generation-i"]["yellow"]?.front_transparent }];
+		}
+		if (data.data.id <= 251)
+		{
+			if (data?.data?.sprites?.versions["generation-ii"]["gold"]?.front_transparent)
+				ret = [...ret, { label: "Gold", value: data?.data?.sprites?.versions["generation-ii"]["gold"]?.front_transparent }];
+			if (data?.data?.sprites?.versions["generation-ii"]["silver"]?.front_transparent)
+				ret = [...ret, { label: "Silver", value: data?.data?.sprites?.versions["generation-ii"]["silver"]?.front_transparent }];
+			if (data?.data?.sprites?.versions["generation-ii"]["crystal"]?.front_shiny)
+				ret = [...ret, { label: "Crystal", value: data?.data?.sprites?.versions["generation-ii"]["crystal"]?.front_shiny_transparent }];
+		}
+		if (data.data.id <= 386)
+		{
+			if (data?.data?.sprites?.versions["generation-iii"]["ruby-saphire"]?.front_shiny)
+				ret = [...ret, { label: "Ruby/Saphire", value: data?.data?.sprites?.versions["generation-iii"]["ruby-saphire"]?.front_shiny }];
+			if (data?.data?.sprites?.versions["generation-iii"]["firered-leafgreen"]?.front_shiny)
+				ret = [...ret, { label: "Fire Red/Leaf Grean", value: data?.data?.sprites?.versions["generation-iii"]["firered-leafgreen"]?.front_shiny }];
+			if (data?.data?.sprites?.versions["generation-iii"]["emerald"]?.front_shiny)
+				ret = [...ret, { label: "Emerald", value: data?.data?.sprites?.versions["generation-iii"]["emerald"]?.front_shiny }];
+		}
+		if(data.data.id <= 493)
+		{
+			if (data?.data?.sprites?.versions["generation-iv"]["diamond-pearl"]?.front_shiny)
+				ret = [...ret, { label: "Diamond/Pearl", value: data?.data?.sprites?.versions["generation-iv"]["diamond-pearl"]?.front_shiny }];
+			if (data?.data?.sprites?.versions["generation-iv"]["heartgold-soulsilver"]?.front_shiny)
+				ret = [...ret, { label: "Heartgold/Soulsilver", value: data?.data?.sprites?.versions["generation-iv"]["heartgold-soulsilver"]?.front_shiny }];
+			if (data?.data?.sprites?.versions["generation-iv"]["platinum"]?.front_shiny)
+				ret = [...ret, { label: "Platine", value: data?.data?.sprites?.versions["generation-iv"]["platinum"]?.front_shiny }];
+		}
+		if (data.data.id <= 649)
+		{
+			if (data?.data?.sprites?.versions["generation-v"]["black-white"]?.animated?.front_shiny)
+				ret = [...ret, { label: "Black/White", value: data?.data?.sprites?.versions["generation-v"]["black-white"]?.animated?.front_shiny }];
+		}
+		if (data?.data?.sprites?.other?.showdown.front_shiny)
+			ret = [...ret, { label: "Showdown", value: data?.data?.sprites?.other?.showdown.front_shiny }];
+
+		return ret;
+	});
 
 	const handleKeyPress = (event) => {
 		if (event.keyCode === 187)
@@ -57,6 +107,10 @@ function Tracker ({data, id, focusedID, handleFocusClick, handleCloseClick, refr
 			setPosition({ x: ref.current.getBoundingClientRect().x, y: ref.current.getBoundingClientRect().y })
 	}
 
+	const handleDropdownChange = (value) => {
+		setDropdownValue(value);
+	}
+
 	let draggableProps = {
 		defaultPosition: position
 	}
@@ -70,7 +124,7 @@ function Tracker ({data, id, focusedID, handleFocusClick, handleCloseClick, refr
 		<Draggable {...draggableProps}>
 			<div ref={ref} className="aspect-[4/5] min-w-[280px] min-h-[310px] w-[12%] absolute flex flex-col">
 				<div className="w-full h-[10%] bg-slate-500 rounded-t-lg flex flex-row items-center justify-end">
-					<p className="text-white w-full pl-[10px] text-[0.8vw]">{(data.data.name.charAt(0).toUpperCase() + data.data.name.slice(1)).split('-')[0]}</p>
+					<p className="text-white w-full pl-[10px] text-[0.8vw] pointer-events-none">{(data.data.name.charAt(0).toUpperCase() + data.data.name.slice(1)).split('-')[0] + " - " + data.data.id}</p>
 					{lockPosition ? <FaLock className="text-yellow-500 h-[30px] w-[30px] mx-[1%] cursor-pointer" onClick={handleClickLock}/>
 						: <FaLockOpen className="text-yellow-500 h-[30px] w-[30px] mx-[1%] cursor-pointer" onClick={handleClickLock} />}
 					<FaGear className="text-blue-500 h-[30px] w-[30px] mx-[1%] cursor-pointer" onClick={handeClickOptions}/>
@@ -81,10 +135,10 @@ function Tracker ({data, id, focusedID, handleFocusClick, handleCloseClick, refr
 				<div className="w-full h-[90%] p-[10px] bg-gray-900/80 rounded-b-lg">
 					{!optionsUp ? 
 						<div className="w-full h-full">
-							<div className="w-full h-[85%] bg-no-repeat bg-center bg-contain z-0 scale-110 pointer-events-none origin-bottom" style={{ backgroundImage: `url(${data.data?.sprites?.other?.showdown?.front_shiny}` }}></div>
+							<div className="w-full h-[85%] bg-no-repeat bg-center bg-contain z-0 scale-110 pointer-events-none origin-bottom" style={{ backgroundImage: `url(${dropdownValue ? dropdownValue.value : data?.data?.sprites?.other?.showdown.front_shiny}` }}></div>
 							<div className="w-full flex flex-row text-white">
 								<button className="text-5xl z-10" onClick={() => handleClick(increment * -1)}>-</button>
-								<p className="text-white w-full text-5xl text-center z-10">{count}</p>
+								<p className="text-white w-full text-5xl text-center z-10 pointer-events-none">{count}</p>
 								<button className="text-5xl z-10" onClick={() => handleClick(increment)}>+</button>
 							</div>
 						</div> :
@@ -96,6 +150,12 @@ function Tracker ({data, id, focusedID, handleFocusClick, handleCloseClick, refr
 							<label className="text-white">
 								Count :
 								<input type="number" value={count} onChange={handleChangeCountMenuOptions} className="ml-[5%] bg-transparent border-2 border-white rounded-lg text-center" />
+							</label>
+							<label className="flex flex-row text-white">
+								Sprite :
+								<div className="w-[70%] ml-[5%] bg-transparent border-2 border-white rounded-lg">
+									<Dropdown options={getDropdownOptions(data)} value={dropdownValue} onChange={handleDropdownChange}/>
+								</div>
 							</label>
 						</div>
 					}

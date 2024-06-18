@@ -9,10 +9,6 @@ function App() {
 		getData();
 	}, [])
 
-	useEffect(() => {
-		console.log("bah wsh stp nan ?")
-	}, [trackerDataList])
-
 	const fetchPokemonData = async (pokemon) => {
 		pokemon = pokemon.toLowerCase();
 		
@@ -34,6 +30,7 @@ function App() {
 		const data = JSON.parse(localStorage.getItem('trackerDataList'));
 		if (data)
 			setTrackerDataList(data);
+		console.log(data);
 	};
 
 	const setData = (data) => {
