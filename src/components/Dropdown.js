@@ -37,12 +37,12 @@ function Dropdown({options, value, onChange}) {
 	});
 
 	const chevronClasses = classNames(
-		"lg:text-[1vw] text-[3.2vw] transition-transform duration-300",
+		"lg:text-[1vw] text-[8vw] transition-transform duration-300",
 		isOpen &&  "rotate-[-90deg]"
 	)
 
 	const dropdownClasses = classNames(
-		"absolute top-full border-[1px] rounded border-white w-[104%] ml-[-2%] bg-white overflow-hidden transition-all duration-500 ease-in-out text-black",
+		"absolute top-full border-[1px] border-white w-[100%] ml-[-4%] bg-white overflow-hidden transition-all duration-500 ease-in-out text-black z-20",
 		isOpen ? "opacity-100 max-h-[9999px]" : "opacity-0 max-h-0"
 	)
 
