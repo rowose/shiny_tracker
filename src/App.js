@@ -48,7 +48,7 @@ function App() {
 	}
 
 	return (
-		<div className="overflow-y-hidden">
+		<div className="w-screen h-screen bg-gradient-to-tr from-slate-950 to-slate-900">
 			<Navbar fetchPokemon={fetchPokemonData}/>
 			<TrackersPage trackersData={trackerDataList} removeTracker={removeTracker} setData={setData}/>
 		</div>

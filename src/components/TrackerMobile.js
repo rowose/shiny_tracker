@@ -3,7 +3,7 @@ import Draggable from "react-draggable";
 import { FaGear, FaLock, FaLockOpen, FaTrashCan, FaEye, FaEyeSlash } from "react-icons/fa6";
 import Dropdown from "./Dropdown";
 
-function Tracker ({data, id, focusedID, handleFocusClick, handleCloseClick, refreshData}) {
+function TrackerMobile ({data, id, focusedID, handleFocusClick, handleCloseClick, refreshData}) {
 	const [dropdownValue, setDropdownValue] = useState(data.sprite);
 	const [count, setCount] = useState(data.count);
 	const [position, setPosition] = useState(data.position);
@@ -123,8 +123,8 @@ function Tracker ({data, id, focusedID, handleFocusClick, handleCloseClick, refr
 		draggableProps = { ...draggableProps, onDrag: handleDrag};
 
 	return (
-		<Draggable {...draggableProps}>
-			<div ref={ref} className="aspect-[4/5] lg:min-w-[280px] lg:min-h-[310px] lg:w-[12%] absolute flex flex-col">
+		<div className="w-[50%]">
+			<div ref={ref} className="aspect-[4/5] lg:min-w-[280px] lg:min-h-[310px] lg:w-[12%] flex flex-col">
 				<div className="w-full h-[10%] bg-slate-500 rounded-t-lg flex flex-row items-center justify-end">
 					<p className="text-white w-full pl-[10px] lg:text-[0.8vw] text-[3vw] pointer-events-none">{(data.data.name.charAt(0).toUpperCase() + data.data.name.slice(1)).split('-')[0] + " - " + data.data.id}</p>
 					{lockPosition ? <FaLock className="text-yellow-500 h-[30px] w-[30px] mx-[1%] cursor-pointer hover:scale-110 transition-transform duration-100" onClick={handleClickLock}/>
@@ -163,8 +163,8 @@ function Tracker ({data, id, focusedID, handleFocusClick, handleCloseClick, refr
 					}
 				</div>
 			</div>
-		</Draggable>
+		</div>
 	)
 }
 
-export default Tracker;
+export default TrackerMobile;
