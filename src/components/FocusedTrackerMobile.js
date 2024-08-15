@@ -5,24 +5,21 @@ import Dropdown from "./Dropdown";
 function FocusedTrackerMobile({ data, id, focusedID, handleFocusClick, handleCloseClick, refreshData }) {
 	const [dropdownValue, setDropdownValue] = useState(data.sprite);
 	const [count, setCount] = useState(data.count);
-	const [position, setPosition] = useState(data.position);
 	const [increment, setIncrement] = useState(1);
 	const [optionsUp, setOptionsUp] = useState(false);
 
 	const ref = useRef();
 
 	useLayoutEffect(() => {
-		data.position = position;
 		data.count = count;
 		data.sprite = dropdownValue;
-		data.locked = lockPosition;
 		refreshData();
 
 		if (id === focusedID)
 			window.addEventListener("keydown", handleKeyPress, true);
 
 		return () => window.removeEventListener("keydown", handleKeyPress, true);
-	}, [count, focusedID, position, dropdownValue, lockPosition])
+	}, [count, focusedID, dropdownValue])
 
 	const getDropdownOptions = ((data) => {
 		let ret = [];
