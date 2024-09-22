@@ -24,47 +24,43 @@ function TrackerMobile ({data, id, focusedID, handleFocusClick, handleCloseClick
 
 	console.log(data);
 
+
 	const getDropdownOptions = ((data) => {
 		let ret = [];
 
-		if (data.data.id <= 151)
-		{
+		if (data.data.id <= 151) {
 			if (data?.data?.sprites?.versions["generation-i"]["red-blue"]?.front_transparent)
-				ret = [...ret, { label: "Red/Blue", value: data?.data?.sprites?.versions["generation-i"]["red-blue"]?.front_transparent }];
+				ret = [...ret, { label: "RB", value: data?.data?.sprites?.versions["generation-i"]["red-blue"]?.front_transparent }];
 			if (data?.data?.sprites?.versions["generation-i"]["yellow"]?.front_transparent)
-				ret = [...ret, { label: "Yellow", value: data?.data?.sprites?.versions["generation-i"]["yellow"]?.front_transparent }];
+				ret = [...ret, { label: "Y", value: data?.data?.sprites?.versions["generation-i"]["yellow"]?.front_transparent }];
 		}
-		if (data.data.id <= 251)
-		{
+		if (data.data.id <= 251) {
 			if (data?.data?.sprites?.versions["generation-ii"]["gold"]?.front_transparent)
-				ret = [...ret, { label: "Gold", value: data?.data?.sprites?.versions["generation-ii"]["gold"]?.front_transparent }];
+				ret = [...ret, { label: "G", value: data?.data?.sprites?.versions["generation-ii"]["gold"]?.front_transparent }];
 			if (data?.data?.sprites?.versions["generation-ii"]["silver"]?.front_transparent)
-				ret = [...ret, { label: "Silver", value: data?.data?.sprites?.versions["generation-ii"]["silver"]?.front_transparent }];
+				ret = [...ret, { label: "S", value: data?.data?.sprites?.versions["generation-ii"]["silver"]?.front_transparent }];
 			if (data?.data?.sprites?.versions["generation-ii"]["crystal"]?.front_shiny)
-				ret = [...ret, { label: "Crystal", value: data?.data?.sprites?.versions["generation-ii"]["crystal"]?.front_shiny_transparent }];
+				ret = [...ret, { label: "C", value: data?.data?.sprites?.versions["generation-ii"]["crystal"]?.front_shiny_transparent }];
 		}
-		if (data.data.id <= 386)
-		{
+		if (data.data.id <= 386) {
 			if (data?.data?.sprites?.versions["generation-iii"]["ruby-saphire"]?.front_shiny)
-				ret = [...ret, { label: "Ruby/Saphire", value: data?.data?.sprites?.versions["generation-iii"]["ruby-saphire"]?.front_shiny }];
+				ret = [...ret, { label: "RS", value: data?.data?.sprites?.versions["generation-iii"]["ruby-saphire"]?.front_shiny }];
 			if (data?.data?.sprites?.versions["generation-iii"]["firered-leafgreen"]?.front_shiny)
-				ret = [...ret, { label: "Fire Red/Leaf Green", value: data?.data?.sprites?.versions["generation-iii"]["firered-leafgreen"]?.front_shiny }];
+				ret = [...ret, { label: "FRLG", value: data?.data?.sprites?.versions["generation-iii"]["firered-leafgreen"]?.front_shiny }];
 			if (data?.data?.sprites?.versions["generation-iii"]["emerald"]?.front_shiny)
-				ret = [...ret, { label: "Emerald", value: data?.data?.sprites?.versions["generation-iii"]["emerald"]?.front_shiny }];
+				ret = [...ret, { label: "E", value: data?.data?.sprites?.versions["generation-iii"]["emerald"]?.front_shiny }];
 		}
-		if(data.data.id <= 493)
-		{
+		if (data.data.id <= 493) {
 			if (data?.data?.sprites?.versions["generation-iv"]["diamond-pearl"]?.front_shiny)
-				ret = [...ret, { label: "Diamond/Pearl", value: data?.data?.sprites?.versions["generation-iv"]["diamond-pearl"]?.front_shiny }];
+				ret = [...ret, { label: "DP", value: data?.data?.sprites?.versions["generation-iv"]["diamond-pearl"]?.front_shiny }];
 			if (data?.data?.sprites?.versions["generation-iv"]["heartgold-soulsilver"]?.front_shiny)
-				ret = [...ret, { label: "Heartgold/Soulsilver", value: data?.data?.sprites?.versions["generation-iv"]["heartgold-soulsilver"]?.front_shiny }];
+				ret = [...ret, { label: "HGSS", value: data?.data?.sprites?.versions["generation-iv"]["heartgold-soulsilver"]?.front_shiny }];
 			if (data?.data?.sprites?.versions["generation-iv"]["platinum"]?.front_shiny)
-				ret = [...ret, { label: "Platine", value: data?.data?.sprites?.versions["generation-iv"]["platinum"]?.front_shiny }];
+				ret = [...ret, { label: "Pt", value: data?.data?.sprites?.versions["generation-iv"]["platinum"]?.front_shiny }];
 		}
-		if (data.data.id <= 649)
-		{
+		if (data.data.id <= 649) {
 			if (data?.data?.sprites?.versions["generation-v"]["black-white"]?.animated?.front_shiny)
-				ret = [...ret, { label: "Black/White", value: data?.data?.sprites?.versions["generation-v"]["black-white"]?.animated?.front_shiny }];
+				ret = [...ret, { label: "BW", value: data?.data?.sprites?.versions["generation-v"]["black-white"]?.animated?.front_shiny }];
 		}
 		if (data?.data?.sprites?.other?.showdown.front_shiny)
 			ret = [...ret, { label: "Showdown", value: data?.data?.sprites?.other?.showdown.front_shiny }];
@@ -132,7 +128,7 @@ function TrackerMobile ({data, id, focusedID, handleFocusClick, handleCloseClick
 								<p className="lg:text-[0.7vw] text-[3vw] w-[33%]">Count :</p>
 								<input type="number" value={count} onChange={handleChangeCountMenuOptions} className="ml-[5%] w-[65%] bg-transparent border-2 border-white rounded-lg text-center outline-none hover:bg-white focus:bg-white hover:text-black focus:text-black transition-color duration-300" />
 							</label>
-							{data.data.sprites["back_default"] ? <label className="text-white flex flex-row justify-between w-full h-[10%]">
+							{data.data.sprites["back_default"] ? <label className="text-white flex flex-row justify-between w-full h-[20%]">
 								<p className="lg:text-[0.7vw] text-[3vw] w-[33%]">Sprite :</p>
 								<div className="w-[65%] ml-[5%] bg-transparent border-2 border-white rounded-lg">
 									<Dropdown options={getDropdownOptions(data)} value={dropdownValue} onChange={handleDropdownChange} />

@@ -36,41 +36,41 @@ function Tracker ({data, id, focusedID, handleFocusClick, handleCloseClick, refr
 		if (data.data.id <= 151)
 		{
 			if (data?.data?.sprites?.versions["generation-i"]["red-blue"]?.front_transparent)
-				ret = [...ret, { label: "Red/Blue", value: data?.data?.sprites?.versions["generation-i"]["red-blue"]?.front_transparent }];
+				ret = [...ret, { label: "RB", value: data?.data?.sprites?.versions["generation-i"]["red-blue"]?.front_transparent }];
 			if (data?.data?.sprites?.versions["generation-i"]["yellow"]?.front_transparent)
-				ret = [...ret, { label: "Yellow", value: data?.data?.sprites?.versions["generation-i"]["yellow"]?.front_transparent }];
+				ret = [...ret, { label: "Y", value: data?.data?.sprites?.versions["generation-i"]["yellow"]?.front_transparent }];
 		}
 		if (data.data.id <= 251)
 		{
 			if (data?.data?.sprites?.versions["generation-ii"]["gold"]?.front_transparent)
-				ret = [...ret, { label: "Gold", value: data?.data?.sprites?.versions["generation-ii"]["gold"]?.front_transparent }];
+				ret = [...ret, { label: "G", value: data?.data?.sprites?.versions["generation-ii"]["gold"]?.front_transparent }];
 			if (data?.data?.sprites?.versions["generation-ii"]["silver"]?.front_transparent)
-				ret = [...ret, { label: "Silver", value: data?.data?.sprites?.versions["generation-ii"]["silver"]?.front_transparent }];
+				ret = [...ret, { label: "S", value: data?.data?.sprites?.versions["generation-ii"]["silver"]?.front_transparent }];
 			if (data?.data?.sprites?.versions["generation-ii"]["crystal"]?.front_shiny)
-				ret = [...ret, { label: "Crystal", value: data?.data?.sprites?.versions["generation-ii"]["crystal"]?.front_shiny_transparent }];
+				ret = [...ret, { label: "C", value: data?.data?.sprites?.versions["generation-ii"]["crystal"]?.front_shiny_transparent }];
 		}
 		if (data.data.id <= 386)
 		{
 			if (data?.data?.sprites?.versions["generation-iii"]["ruby-saphire"]?.front_shiny)
-				ret = [...ret, { label: "Ruby/Saphire", value: data?.data?.sprites?.versions["generation-iii"]["ruby-saphire"]?.front_shiny }];
+				ret = [...ret, { label: "RS", value: data?.data?.sprites?.versions["generation-iii"]["ruby-saphire"]?.front_shiny }];
 			if (data?.data?.sprites?.versions["generation-iii"]["firered-leafgreen"]?.front_shiny)
-				ret = [...ret, { label: "Fire Red/Leaf Green", value: data?.data?.sprites?.versions["generation-iii"]["firered-leafgreen"]?.front_shiny }];
+				ret = [...ret, { label: "FRLG", value: data?.data?.sprites?.versions["generation-iii"]["firered-leafgreen"]?.front_shiny }];
 			if (data?.data?.sprites?.versions["generation-iii"]["emerald"]?.front_shiny)
-				ret = [...ret, { label: "Emerald", value: data?.data?.sprites?.versions["generation-iii"]["emerald"]?.front_shiny }];
+				ret = [...ret, { label: "E", value: data?.data?.sprites?.versions["generation-iii"]["emerald"]?.front_shiny }];
 		}
 		if(data.data.id <= 493)
 		{
 			if (data?.data?.sprites?.versions["generation-iv"]["diamond-pearl"]?.front_shiny)
-				ret = [...ret, { label: "Diamond/Pearl", value: data?.data?.sprites?.versions["generation-iv"]["diamond-pearl"]?.front_shiny }];
+				ret = [...ret, { label: "DP", value: data?.data?.sprites?.versions["generation-iv"]["diamond-pearl"]?.front_shiny }];
 			if (data?.data?.sprites?.versions["generation-iv"]["heartgold-soulsilver"]?.front_shiny)
-				ret = [...ret, { label: "Heartgold/Soulsilver", value: data?.data?.sprites?.versions["generation-iv"]["heartgold-soulsilver"]?.front_shiny }];
+				ret = [...ret, { label: "HGSS", value: data?.data?.sprites?.versions["generation-iv"]["heartgold-soulsilver"]?.front_shiny }];
 			if (data?.data?.sprites?.versions["generation-iv"]["platinum"]?.front_shiny)
-				ret = [...ret, { label: "Platine", value: data?.data?.sprites?.versions["generation-iv"]["platinum"]?.front_shiny }];
+				ret = [...ret, { label: "Pt", value: data?.data?.sprites?.versions["generation-iv"]["platinum"]?.front_shiny }];
 		}
 		if (data.data.id <= 649)
 		{
 			if (data?.data?.sprites?.versions["generation-v"]["black-white"]?.animated?.front_shiny)
-				ret = [...ret, { label: "Black/White", value: data?.data?.sprites?.versions["generation-v"]["black-white"]?.animated?.front_shiny }];
+				ret = [...ret, { label: "BW", value: data?.data?.sprites?.versions["generation-v"]["black-white"]?.animated?.front_shiny }];
 		}
 		if (data?.data?.sprites?.other?.showdown.front_shiny)
 			ret = [...ret, { label: "Showdown", value: data?.data?.sprites?.other?.showdown.front_shiny }];
