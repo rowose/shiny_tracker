@@ -1,6 +1,7 @@
 import { useLayoutEffect, useRef, useState } from "react";
 import { FaGear, FaTrashCan, FaEye, FaEyeSlash } from "react-icons/fa6";
 import Dropdown from "./Dropdown";
+import MissingPokemon from "../images/missing_pokemon.png"
 
 function TrackerMobile ({data, id, focusedID, handleFocusClick, handleCloseClick, refreshData}) {
 	const [dropdownValue, setDropdownValue] = useState(data.sprite);
@@ -20,6 +21,8 @@ function TrackerMobile ({data, id, focusedID, handleFocusClick, handleCloseClick
 
 		return () => window.removeEventListener("keydown", handleKeyPress, true);
 	}, [count, focusedID, dropdownValue, ])
+
+	console.log(data);
 
 	const getDropdownOptions = ((data) => {
 		let ret = [];
@@ -111,7 +114,9 @@ function TrackerMobile ({data, id, focusedID, handleFocusClick, handleCloseClick
 				<div className="w-full h-[90%] p-[10px] bg-gray-900/80 rounded-b-lg">
 					{!optionsUp ? 
 						<div className="w-full h-full">
+							{data.data.sprites["back_default"] ? 
 							<div className="w-full h-[85%] bg-no-repeat bg-center bg-contain z-0 scale-110 pointer-events-none origin-bottom" style={{ backgroundImage: `url(${dropdownValue ? dropdownValue.value : data?.data?.sprites?.other?.showdown.front_shiny}` }}></div>
+								: <div className="w-full h-[85%] bg-no-repeat bg-center bg-contain z-0  pointer-events-none origin-bottom" style={{ backgroundImage: `url(${MissingPokemon}` }}></div>}
 							<div className="w-full flex flex-row text-white">
 								<button className="lg:text-5xl text-[6vw] z-10 hover:scale-110 transition-transform duration-100" onClick={() => handleClick(increment * -1)}>-</button>
 								<p className="text-white w-full lg:text-5xl text-[6vw] text-center z-10 pointer-events-none">{count}</p>
@@ -127,12 +132,12 @@ function TrackerMobile ({data, id, focusedID, handleFocusClick, handleCloseClick
 								<p className="lg:text-[0.7vw] text-[3vw] w-[33%]">Count :</p>
 								<input type="number" value={count} onChange={handleChangeCountMenuOptions} className="ml-[5%] w-[65%] bg-transparent border-2 border-white rounded-lg text-center outline-none hover:bg-white focus:bg-white hover:text-black focus:text-black transition-color duration-300" />
 							</label>
-							<label className="text-white flex flex-row justify-between w-full h-[20%]">
+							{data.data.sprites["back_default"] ? <label className="text-white flex flex-row justify-between w-full h-[10%]">
 								<p className="lg:text-[0.7vw] text-[3vw] w-[33%]">Sprite :</p>
 								<div className="w-[65%] ml-[5%] bg-transparent border-2 border-white rounded-lg">
-									<Dropdown options={getDropdownOptions(data)} value={dropdownValue} onChange={handleDropdownChange}/>
+									<Dropdown options={getDropdownOptions(data)} value={dropdownValue} onChange={handleDropdownChange} />
 								</div>
-							</label>
+							</label> : null}
 						</div>
 					}
 				</div>
