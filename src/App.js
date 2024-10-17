@@ -48,7 +48,7 @@ function App() {
 	}
 
 	return (
-		<div className="w-screen min-h-screen h-fit bg-gradient-to-tr from-slate-950 to-slate-900">
+		<div className="w-screen min-h-screen h-fit bg-gradient-to-tr from-slate-950 to-slate-900 font-VT323">
 			<Navbar fetchPokemon={fetchPokemonData}/>
 			<TrackersPage trackersData={trackerDataList} removeTracker={removeTracker} setData={setData}/>
 		</div>

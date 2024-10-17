@@ -130,20 +130,20 @@ function Tracker ({data, id, focusedID, handleFocusClick, handleCloseClick, refr
 		<Draggable {...draggableProps}>
 			<div ref={ref} className="aspect-[4/5] lg:min-w-[280px] lg:min-h-[310px] lg:w-[12%] absolute flex flex-col shadow-2xl">
 				<div className="w-full h-[10%] bg-slate-500 rounded-t-lg flex flex-row items-center justify-end">
-					<p className="text-white w-full pl-[10px] lg:text-[0.8vw] text-[3vw] pointer-events-none">{(data.data.name.charAt(0).toUpperCase() + data.data.name.slice(1)).split('-')[0] + " - " + data.data.id}</p>
-					{lockPosition ? <FaLock className="text-yellow-500 h-[30px] w-[30px] mx-[1%] cursor-pointer hover:scale-110 transition-transform duration-100" onClick={handleClickLock}/>
-						: <FaLockOpen className="text-yellow-500 h-[30px] w-[30px] mx-[1%] cursor-pointer hover:scale-110 transition-transform duration-100" onClick={handleClickLock} />}
-					<FaGear className="text-blue-500 h-[30px] w-[30px] mx-[1%] cursor-pointer hover:scale-110 transition-transform duration-100" onClick={handeClickOptions}/>
-					{id === focusedID ? <FaEye className="text-green-500 h-[30px] w-[30px] mx-[1%] cursor-pointer hover:scale-110 transition-transform duration-100" onClick={() => handleFocusClick(id)}/>
-						: <FaEyeSlash className="text-green-500 h-[30px] w-[30px] mx-[1%] cursor-pointer hover:scale-110 transition-transform duration-100" onClick={() => handleFocusClick(id)} />}
-					<FaTrashCan className="text-red-500 h-[30px] w-[30px] mr-[2%] ml-[1%] cursor-pointer hover:scale-110 transition-transform duration-100" onClick={() => handleCloseClick(id)}/>
+					<p className="text-white w-full pl-[10px] lg:text-[1vw] text-[3vw] pointer-events-none">{(data.data.name.charAt(0).toUpperCase() + data.data.name.slice(1)).split('-')[0] + " - " + data.data.id}</p>
+					{lockPosition ? <FaLock className="text-white h-[30px] w-[30px] mx-[1%] cursor-pointer hover:scale-110 transition-transform duration-100" onClick={handleClickLock}/>
+						: <FaLockOpen className="text-white h-[30px] w-[30px] mx-[1%] cursor-pointer hover:scale-110 transition-transform duration-100" onClick={handleClickLock} />}
+					<FaGear className="text-white h-[30px] w-[30px] mx-[1%] cursor-pointer hover:scale-110 transition-transform duration-100" onClick={handeClickOptions}/>
+					{id === focusedID ? <FaEye className="text-white h-[30px] w-[30px] mx-[1%] cursor-pointer hover:scale-110 transition-transform duration-100" onClick={() => handleFocusClick(id)}/>
+						: <FaEyeSlash className="text-white h-[30px] w-[30px] mx-[1%] cursor-pointer hover:scale-110 transition-transform duration-100" onClick={() => handleFocusClick(id)} />}
+					<FaTrashCan className="text-white h-[30px] w-[30px] mr-[2%] ml-[1%] cursor-pointer hover:scale-110 transition-transform duration-100" onClick={() => handleCloseClick(id)}/>
 				</div>
 				<div className="w-full h-[90%] p-[10px] bg-gray-900/80 rounded-b-lg">
 					{!optionsUp ? 
 						<div className="w-full h-full">
 							{data.data.sprites["back_default"] ?
 								<div className="w-full h-[85%] bg-no-repeat bg-center bg-contain z-0 scale-110 pointer-events-none origin-bottom" style={{ backgroundImage: `url(${dropdownValue ? dropdownValue.value : data?.data?.sprites?.other?.showdown.front_shiny}` }}></div>
-								: <div className="w-full h-[85%] bg-no-repeat bg-center bg-contain z-0  pointer-events-none origin-bottom" style={{ backgroundImage: `url(${MissingPokemon}` }}></div>}
+								: <div className="w-full h-[85%] bg-no-repeat bg-center bg-contain z-0 pointer-events-none origin-bottom" style={{ backgroundImage: `url(${MissingPokemon}` }}></div>}
 							<div className="w-full flex flex-row text-white">
 								<button className="lg:text-5xl text-[6vw] z-10 hover:scale-110 transition-transform duration-100" onClick={() => handleClick(increment * -1)}>-</button>
 								<p className="text-white w-full lg:text-5xl text-[6vw] text-center z-10 pointer-events-none">{count}</p>

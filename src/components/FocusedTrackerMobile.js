@@ -99,11 +99,11 @@ function FocusedTrackerMobile({ data, id, focusedID, handleFocusClick, handleClo
 			<div className="w-full h-full">
 				<div ref={ref} className="h-[90dvh] flex flex-col shadow-2xl">
 					<div className="w-full h-[7%] bg-slate-500 rounded-t-lg flex flex-row items-center justify-end">
-						<p className="text-white w-full pl-[10px] text-[5vw] pointer-events-none">{(data.data.name.charAt(0).toUpperCase() + data.data.name.slice(1)).split('-')[0] + " - " + data.data.id}</p>
-						<FaGear className="text-blue-500 h-[30px] w-[30px] mx-[1%] cursor-pointer hover:scale-110 transition-transform duration-100" onClick={handeClickOptions} />
-						{id === focusedID ? <FaEye className="text-green-500 h-[30px] w-[30px] mx-[1%] cursor-pointer hover:scale-110 transition-transform duration-100" onClick={() => handleFocusClick(id)} />
-							: <FaEyeSlash className="text-green-500 h-[30px] w-[30px] mx-[1%] cursor-pointer hover:scale-110 transition-transform duration-100" onClick={() => handleFocusClick(id)} />}
-						<FaTrashCan className="text-red-500 h-[25px] w-[25px] mr-[2%] ml-[1%] cursor-pointer hover:scale-110 transition-transform duration-100" onClick={() => handleCloseClick(id)} />
+						<p className="text-white w-full pl-[10px] text-[6vw] pointer-events-none">{(data.data.name.charAt(0).toUpperCase() + data.data.name.slice(1)).split('-')[0] + " - " + data.data.id}</p>
+						<FaGear className="text-white h-[30px] w-[30px] mx-[1%] cursor-pointer hover:scale-110 transition-transform duration-100" onClick={handeClickOptions} />
+						{id === focusedID ? <FaEye className="text-white h-[30px] w-[30px] mx-[1%] cursor-pointer hover:scale-110 transition-transform duration-100" onClick={() => handleFocusClick(id)} />
+							: <FaEyeSlash className="text-white h-[30px] w-[30px] mx-[1%] cursor-pointer hover:scale-110 transition-transform duration-100" onClick={() => handleFocusClick(id)} />}
+						<FaTrashCan className="text-white h-[25px] w-[25px] mr-[2%] ml-[1%] cursor-pointer hover:scale-110 transition-transform duration-100" onClick={() => handleCloseClick(id)} />
 					</div>
 					<div className="w-full h-[90%] p-[10px] bg-gray-900/80 rounded-b-lg">
 						{!optionsUp ?
