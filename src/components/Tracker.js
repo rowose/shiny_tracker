@@ -4,7 +4,7 @@ import { FaGear, FaLock, FaLockOpen, FaTrashCan, FaEye, FaEyeSlash } from "react
 import Dropdown from "./Dropdown";
 import MissingPokemon from "../images/missing_pokemon.png"
 
-function Tracker ({data, id, focusedID, handleFocusClick, handleCloseClick, refreshData}) {
+function Tracker ({data, id, focusedID, handleFocusClick, handleCloseClick, refreshData, offsetY}) {
 	const [dropdownValue, setDropdownValue] = useState(data.sprite);
 	const [count, setCount] = useState(data.count);
 	const [position, setPosition] = useState(data.position);
@@ -110,7 +110,7 @@ function Tracker ({data, id, focusedID, handleFocusClick, handleCloseClick, refr
 
 	const handleDrag = () => {
 		if (!lockPosition)
-			setPosition({ x: ref.current.getBoundingClientRect().x, y: ref.current.getBoundingClientRect().y })
+			setPosition({ x: ref.current.getBoundingClientRect().x, y: ref.current.getBoundingClientRect().y - offsetY })
 	}
 
 	const handleDropdownChange = (value) => {

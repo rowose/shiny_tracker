@@ -4,7 +4,7 @@ import { BrowserView, MobileView } from "react-device-detect";
 import TrackerMobile from "../components/TrackerMobile";
 import FocusedTrackerMobile from "../components/FocusedTrackerMobile";
 
-function TrackersPage({trackersData, removeTracker, setData}) {
+function TrackersPage({trackersData, removeTracker, setData, offsetY, screenRef}) {
 	const [trackerFocused, setTrackerFocused] = useState(1);
 
 	useEffect(() => {
@@ -29,7 +29,7 @@ function TrackersPage({trackersData, removeTracker, setData}) {
 	}
 
 	const trackers = trackersData.map((data) => {
-		return <Tracker data={data} id={data.data.id} key={data.data.id} focusedID={trackerFocused} handleFocusClick={handleTrackerFocus} handleCloseClick={handleDeleteClick} refreshData={refreshData}/>
+		return <Tracker data={data} id={data.data.id} key={data.data.id} focusedID={trackerFocused} handleFocusClick={handleTrackerFocus} handleCloseClick={handleDeleteClick} refreshData={refreshData} offsetY={offsetY} screenRef={screenRef}/>
 	})
 
 	const trackersMobile = trackersData.map((data) => {

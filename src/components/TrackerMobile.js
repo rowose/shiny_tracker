@@ -22,8 +22,6 @@ function TrackerMobile ({data, id, focusedID, handleFocusClick, handleCloseClick
 		return () => window.removeEventListener("keydown", handleKeyPress, true);
 	}, [count, focusedID, dropdownValue, ])
 
-	console.log(data);
-
 
 	const getDropdownOptions = ((data) => {
 		let ret = [];
