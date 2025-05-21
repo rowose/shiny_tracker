@@ -21,7 +21,7 @@ function Tracker ({data, id, focusedID, handleFocusClick, handleCloseClick, refr
 		data.locked = lockPosition;
 		refreshData();
 
-		if (id === focusedID)
+		if (focusedID.indexOf(id) > -1)
 			window.addEventListener("keydown", handleKeyPress, true);
 
 		return () => window.removeEventListener("keydown", handleKeyPress, true);
@@ -79,9 +79,9 @@ function Tracker ({data, id, focusedID, handleFocusClick, handleCloseClick, refr
 	});
 
 	const handleKeyPress = (event) => {
-		if (event.keyCode === 187)
+		if (event.keyCode === 187 || event.keyCode === 61)
 			handleClick(increment);
-		else if (event.keyCode === 189)
+		else if (event.keyCode === 189 || event.keyCode === 173)
 			handleClick(increment * -1);
 	}
 
@@ -134,7 +134,7 @@ function Tracker ({data, id, focusedID, handleFocusClick, handleCloseClick, refr
 					{lockPosition ? <FaLock className="text-white h-[30px] w-[30px] mx-[1%] cursor-pointer hover:scale-110 transition-transform duration-100" onClick={handleClickLock}/>
 						: <FaLockOpen className="text-white h-[30px] w-[30px] mx-[1%] cursor-pointer hover:scale-110 transition-transform duration-100" onClick={handleClickLock} />}
 					<FaGear className="text-white h-[30px] w-[30px] mx-[1%] cursor-pointer hover:scale-110 transition-transform duration-100" onClick={handeClickOptions}/>
-					{id === focusedID ? <FaEye className="text-white h-[30px] w-[30px] mx-[1%] cursor-pointer hover:scale-110 transition-transform duration-100" onClick={() => handleFocusClick(id)}/>
+					{focusedID.indexOf(id) > -1 ? <FaEye className="text-white h-[30px] w-[30px] mx-[1%] cursor-pointer hover:scale-110 transition-transform duration-100" onClick={() => handleFocusClick(id)}/>
 						: <FaEyeSlash className="text-white h-[30px] w-[30px] mx-[1%] cursor-pointer hover:scale-110 transition-transform duration-100" onClick={() => handleFocusClick(id)} />}
 					<FaTrashCan className="text-white h-[30px] w-[30px] mr-[2%] ml-[1%] cursor-pointer hover:scale-110 transition-transform duration-100" onClick={() => handleCloseClick(id)}/>
 				</div>

@@ -5,17 +5,22 @@ import TrackerMobile from "../components/TrackerMobile";
 import FocusedTrackerMobile from "../components/FocusedTrackerMobile";
 
 function TrackersPage({trackersData, removeTracker, setData, offsetY, screenRef}) {
-	const [trackerFocused, setTrackerFocused] = useState(1);
+	const [trackerFocused, setTrackerFocused] = useState([]);
 
 	useEffect(() => {
 		refreshData();
 	}, [trackersData])
 
 	const handleTrackerFocus = (id) => {
-		if (id === trackerFocused)
-			setTrackerFocused(1);
+		if (trackerFocused.indexOf(id) > -1)
+		{
+			const tmp = [...trackerFocused];
+			tmp.splice(trackerFocused.indexOf(id), 1)
+			setTrackerFocused(tmp);
+		}
 		else
-			setTrackerFocused(id);
+			setTrackerFocused([...trackerFocused, id]);
+		console.log(trackerFocused)
 	}
 
 	const handleDeleteClick = (id) => {
