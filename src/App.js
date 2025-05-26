@@ -1,10 +1,14 @@
 import TrackersPage from "./pages/TrackersPage"
 import Navbar from "./components/Navbar";
+import PCMenu from "./components/PCMenu";
 import { useLayoutEffect, useState, useRef } from "react";
+import Modal from 'react-modal';
 
 function App() {
 	const [trackerDataList, setTrackerDataList] = useState([]);
+	const [shiniesDataList, setShiniesDataList] = useState([]);
 	const [navbarHeight, setNavbarHeight] = useState(0);
+	const [modalIsOpen, setModalIsOpen] = useState(false);
 
 	useLayoutEffect(() => {
 		getData();
@@ -29,23 +33,29 @@ function App() {
 		setTrackerDataList([...trackerDataList, {data: data, count: 0, position: {x: 0, y: 0}, sprite: null, locked: false}]);
 	}
 
-	const fetchRegionData = async (region) => {
-		const response = await fetch('https://pokeapi.co/api/v2/region/' + "kanto");
-		const data = await response.json();
-
-		console.log(data);
-	}
+	// const fetchRegionData = async (region) => {
+	// 	const response = await fetch('https://pokeapi.co/api/v2/region/' + "kanto");
+	// 	const data = await response.json();
+	// }
 
 	const getData = () => {
-		const data = JSON.parse(localStorage.getItem('trackerDataList'));
-		if (data)
-			setTrackerDataList(data);
+		const trackerData = JSON.parse(localStorage.getItem('trackerDataList'));
+		const shiniesData = JSON.parse(localStorage.getItem('shiniesDataList'))
+		if (trackerData)
+			setTrackerDataList(trackerData);
+		if (shiniesData)
+			setShiniesDataList(shiniesData);
 	};
 
 	const setData = (data) => {
 		setTrackerDataList(data);
 		localStorage.setItem('trackerDataList', JSON.stringify(trackerDataList));
 	}
+
+	const addShiny = (shiny) => {
+		setShiniesDataList([...shiniesDataList, shiny])
+		localStorage.setItem('shiniesDataList', JSON.stringify(shiniesDataList));
+	};
 
 	const removeTracker = (id) => {
 		setTrackerDataList(trackerDataList.filter((tracker) => {
@@ -56,12 +66,44 @@ function App() {
 	));
 	}
 
-	fetchRegionData();
+	const onClickPokeball = () => {
+		setModalIsOpen(true);
+	};
+
+	const onRequestClose = () => {
+		setModalIsOpen(false);
+	};
+
+	// fetchRegionData();
+
+	const customStyles = {
+		content: {
+			height: '90%',
+			marginLeft: '8%',
+			marginTop: '0.5%',
+			backgroundColor: "rgba(255, 255, 255, 0)",
+			padding: "0%",
+			top: "40px",
+			left: "40px",
+			right: "40px",
+			bottom: "40px",
+			border: "0px solid #ccc",
+		},
+		overlay: {
+			backgroundColor: "rgba(0, 0, 0, 0)"
+		}
+	  };
 
 	return (
 		<div ref={ref} className="w-screen min-h-screen h-fit bg-gradient-to-tr from-slate-950 to-slate-900 font-VT323">
-			<Navbar fetchPokemon={fetchPokemonData} setNavbarHeight={setNavbarHeight}/>
-			<TrackersPage trackersData={trackerDataList} removeTracker={removeTracker} setData={setData} offsetY={navbarHeight} screenRef={ref}/>
+			<Modal style={customStyles}
+				isOpen={modalIsOpen}
+				onRequestClose={onRequestClose}
+			>
+				<PCMenu shiniesData={shiniesDataList}/>
+			</Modal>
+			<Navbar fetchPokemon={fetchPokemonData} setNavbarHeight={setNavbarHeight} onClickPokeball={onClickPokeball}/>
+			<TrackersPage trackersData={trackerDataList} addShiny={addShiny} removeTracker={removeTracker} setData={setData} offsetY={navbarHeight} screenRef={ref}/>
 		</div>
 	)
 }

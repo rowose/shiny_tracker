@@ -3,8 +3,9 @@ import Draggable from "react-draggable";
 import { FaGear, FaLock, FaLockOpen, FaTrashCan, FaEye, FaEyeSlash } from "react-icons/fa6";
 import Dropdown from "./Dropdown";
 import MissingPokemon from "../images/missing_pokemon.png"
+import { TbPokeball } from "react-icons/tb";
 
-function Tracker ({data, id, focusedID, handleFocusClick, handleCloseClick, refreshData, offsetY}) {
+function Tracker ({data, id, focusedID, addShiny, handleFocusClick, handleCloseClick, refreshData, offsetY}) {
 	const [dropdownValue, setDropdownValue] = useState(data.sprite);
 	const [count, setCount] = useState(data.count);
 	const [position, setPosition] = useState(data.position);
@@ -108,6 +109,17 @@ function Tracker ({data, id, focusedID, handleFocusClick, handleCloseClick, refr
 		setLockPosition(!lockPosition);
 	}
 
+	const onClickCaught = () => {
+		const shiny = new Object();
+
+		shiny.name = data.data.name.charAt(0).toUpperCase() + data.data.name.slice(1).split('-')[0];
+		shiny.encounters = count;
+		shiny.sprite = dropdownValue ? dropdownValue.value : data?.data?.sprites?.other?.showdown.front_shiny;
+		shiny.pcsprite = data?.data?.sprites?.versions["generation-viii"]?.icons?.front_default;
+		addShiny(shiny)
+		handleCloseClick(id);
+	}
+
 	const handleDrag = () => {
 		if (!lockPosition)
 			setPosition({ x: ref.current.getBoundingClientRect().x, y: ref.current.getBoundingClientRect().y - offsetY })
@@ -150,7 +162,7 @@ function Tracker ({data, id, focusedID, handleFocusClick, handleCloseClick, refr
 								<button className="lg:text-5xl text-[6vw] z-10 hover:scale-110 transition-transform duration-100" onClick={() => handleClick(increment)}>+</button>
 							</div>
 						</div> :
-						<div className="w-full h-full flex flex-col justify-start">
+						<div className="w-full h-full flex flex-col justify-start items-center">
 							<label className="text-white flex flex-row justify-between w-full h-[10%]">
 								<p className="lg:text-[0.7vw] text-[3vw] w-[33%]">Increment :</p>
 								<input type="number" value={increment} onChange={handleChangeIncrement} className="ml-[5%] w-[65%] bg-transparent border-2 border-white rounded-lg text-center outline-none hover:bg-white focus:bg-white hover:text-black focus:text-black transition-color duration-300"/>
@@ -165,6 +177,12 @@ function Tracker ({data, id, focusedID, handleFocusClick, handleCloseClick, refr
 									<Dropdown options={getDropdownOptions(data)} value={dropdownValue} onChange={handleDropdownChange}/>
 								</div>
 							</label> : null}
+							<button className="mt-[5%] text-white border-2 border-white rounded-lg w-[50%] h-[15%] flex flex-row justify-center items-center hover:bg-white focus:bg-white hover:text-black focus:text-black transition-color duration-300" onClick={onClickCaught}>
+								<p>
+									CAUGHT !									
+								</p>
+								<TbPokeball className="text-[1.2vw] ml-[5%]"/>
+							</button>
 						</div>
 					}
 				</div>
