@@ -4,6 +4,7 @@ import { FaGear, FaLock, FaLockOpen, FaTrashCan, FaEye, FaEyeSlash } from "react
 import Dropdown from "./Dropdown";
 import MissingPokemon from "../images/missing_pokemon.png"
 import { TbPokeball } from "react-icons/tb";
+import { v4 as uuidv4 } from 'uuid'
 
 function Tracker ({data, id, focusedID, addShiny, handleFocusClick, handleCloseClick, refreshData, offsetY}) {
 	const [dropdownValue, setDropdownValue] = useState(data.sprite);
@@ -116,6 +117,7 @@ function Tracker ({data, id, focusedID, addShiny, handleFocusClick, handleCloseC
 		shiny.encounters = count;
 		shiny.sprite = dropdownValue ? dropdownValue.value : data?.data?.sprites?.other?.showdown.front_shiny;
 		shiny.pcsprite = data?.data?.sprites?.versions["generation-viii"]?.icons?.front_default;
+		shiny.id = uuidv4();
 		addShiny(shiny)
 		handleCloseClick(id);
 	}

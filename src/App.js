@@ -1,6 +1,6 @@
 import TrackersPage from "./pages/TrackersPage"
 import Navbar from "./components/Navbar";
-import PCMenu from "./components/PCMenu";
+import PCMenu from "./pages/PCMenu";
 import { useLayoutEffect, useState, useRef } from "react";
 import Modal from 'react-modal';
 
@@ -33,11 +33,6 @@ function App() {
 		setTrackerDataList([...trackerDataList, {data: data, count: 0, position: {x: 0, y: 0}, sprite: null, locked: false}]);
 	}
 
-	// const fetchRegionData = async (region) => {
-	// 	const response = await fetch('https://pokeapi.co/api/v2/region/' + "kanto");
-	// 	const data = await response.json();
-	// }
-
 	const getData = () => {
 		const trackerData = JSON.parse(localStorage.getItem('trackerDataList'));
 		const shiniesData = JSON.parse(localStorage.getItem('shiniesDataList'))
@@ -52,10 +47,25 @@ function App() {
 		localStorage.setItem('trackerDataList', JSON.stringify(trackerDataList));
 	}
 
+	const setShiniesData = (data) => {
+		setShiniesDataList(data);
+		localStorage.setItem('shiniesDataList', JSON.stringify(shiniesDataList));
+	}
+
 	const addShiny = (shiny) => {
 		setShiniesDataList([...shiniesDataList, shiny])
 		localStorage.setItem('shiniesDataList', JSON.stringify(shiniesDataList));
 	};
+
+	const removeShiny = (toDelete) => {
+		setShiniesDataList(shiniesDataList.filter((shiny) => {
+			console.log(toDelete.id + " " + shiny.id)
+			if (toDelete.id !== shiny.id)
+				return {name: shiny.name, encounters: shiny.encounters, sprite: shiny.sprite, pcsprite: shiny.pcsprite, id: shiny.id};
+			return ;
+		}
+	));
+	}
 
 	const removeTracker = (id) => {
 		setTrackerDataList(trackerDataList.filter((tracker) => {
@@ -100,7 +110,7 @@ function App() {
 				isOpen={modalIsOpen}
 				onRequestClose={onRequestClose}
 			>
-				<PCMenu shiniesData={shiniesDataList}/>
+				<PCMenu shiniesData={shiniesDataList} removeShiny={removeShiny} setData={setShiniesData}/>
 			</Modal>
 			<Navbar fetchPokemon={fetchPokemonData} setNavbarHeight={setNavbarHeight} onClickPokeball={onClickPokeball}/>
 			<TrackersPage trackersData={trackerDataList} addShiny={addShiny} removeTracker={removeTracker} setData={setData} offsetY={navbarHeight} screenRef={ref}/>
