@@ -88,15 +88,10 @@ function App() {
 
 	const customStyles = {
 		content: {
-			height: '90%',
-			marginLeft: '8%',
+			height: '95%',
 			marginTop: '0.5%',
 			backgroundColor: "rgba(255, 255, 255, 0)",
 			padding: "0%",
-			top: "40px",
-			left: "40px",
-			right: "40px",
-			bottom: "40px",
 			border: "0px solid #ccc",
 		},
 		overlay: {

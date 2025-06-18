@@ -4,7 +4,7 @@ import { BrowserView, MobileView } from "react-device-detect";
 import TrackerMobile from "../components/TrackerMobile";
 import FocusedTrackerMobile from "../components/FocusedTrackerMobile";
 
-function TrackersPage({trackersData, removeTracker, setData, addShiny, offsetY, screenRef}) {
+function TrackersPage({trackersData, removeTracker, setData, addShiny, offsetY}) {
 	const [trackerFocused, setTrackerFocused] = useState([]);
 
 	useEffect(() => {
@@ -20,7 +20,6 @@ function TrackersPage({trackersData, removeTracker, setData, addShiny, offsetY, 
 		}
 		else
 			setTrackerFocused([...trackerFocused, id]);
-		console.log(trackerFocused)
 	}
 
 	const handleDeleteClick = (id) => {
@@ -34,32 +33,32 @@ function TrackersPage({trackersData, removeTracker, setData, addShiny, offsetY, 
 	}
 
 	const trackers = trackersData.map((data) => {
-		return <Tracker data={data} id={data.data.id} key={data.data.id} addShiny={addShiny} focusedID={trackerFocused} handleFocusClick={handleTrackerFocus} handleCloseClick={handleDeleteClick} refreshData={refreshData} offsetY={offsetY} screenRef={screenRef}/>
+		return <Tracker data={data} id={data.data.id} key={data.data.id} addShiny={addShiny} focusedID={trackerFocused} handleFocusClick={handleTrackerFocus} handleCloseClick={handleDeleteClick} refreshData={refreshData} offsetY={offsetY}/>
 	})
 
 	const trackersMobile = trackersData.map((data) => {
-		return <TrackerMobile data={data} id={data.data.id} key={data.data.id} focusedID={trackerFocused} handleFocusClick={handleTrackerFocus} handleCloseClick={handleDeleteClick} refreshData={refreshData} />
+		return <TrackerMobile data={data} id={data.data.id} key={data.data.id} addShiny={addShiny} focusedID={trackerFocused} handleFocusClick={handleTrackerFocus} handleCloseClick={handleDeleteClick} refreshData={refreshData} />
 	})
 
 	const focusedTrackerMobile = trackersData?.map((data) => {
-		if (data.data.id === trackerFocused)
-			return <FocusedTrackerMobile data={data} id={data.data.id} focusedID={trackerFocused} handleFocusClick={handleTrackerFocus} handleCloseClick={handleDeleteClick} refreshData={refreshData} />
+		if (trackerFocused.indexOf(data.data.id) > -1)
+			return <FocusedTrackerMobile data={data} id={data.data.id} key={data.data.id} addShiny={addShiny} focusedID={trackerFocused} handleFocusClick={handleTrackerFocus} handleCloseClick={handleDeleteClick} refreshData={refreshData} />
 		else 
 			return ;
 	})
 
 	return (
-		<div className="w-screen lg:h-[92%] h-[90%]">
+		<div className="w-screen lg:h-[92%] h-[90%] lg:mt-[0%] mt-[2%]">
 			<BrowserView>
-				{trackers}
+						{trackers}
 			</BrowserView>
 			<MobileView>
-				{trackerFocused !== 1 ?
+				{trackerFocused.length > 0  ?
 					<div className="w-full">{focusedTrackerMobile}</div> :
 					<div className="w-full flex flex-row flex-wrap">
 						{trackersMobile}
 					</div>}
-			</MobileView>
+			</MobileView>	
 		</div>
 		
 )

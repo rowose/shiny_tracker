@@ -2,8 +2,10 @@ import { useLayoutEffect, useRef, useState } from "react";
 import { FaGear, FaTrashCan, FaEye, FaEyeSlash } from "react-icons/fa6";
 import Dropdown from "./Dropdown";
 import MissingPokemon from "../images/missing_pokemon.png"
+import { TbPokeball } from "react-icons/tb";
+import {v4 as uuidv4} from 'uuid'
 
-function FocusedTrackerMobile({ data, id, focusedID, handleFocusClick, handleCloseClick, refreshData }) {
+function FocusedTrackerMobile({ data, id, addShiny, focusedID, handleFocusClick, handleCloseClick, refreshData}) {
 	const [dropdownValue, setDropdownValue] = useState(data.sprite);
 	const [count, setCount] = useState(data.count);
 	const [increment, setIncrement] = useState(1);
@@ -16,7 +18,7 @@ function FocusedTrackerMobile({ data, id, focusedID, handleFocusClick, handleClo
 		data.sprite = dropdownValue;
 		refreshData();
 
-		if (id === focusedID)
+		if (focusedID.indexOf(id) > -1)
 			window.addEventListener("keydown", handleKeyPress, true);
 
 		return () => window.removeEventListener("keydown", handleKeyPress, true);
@@ -66,9 +68,9 @@ function FocusedTrackerMobile({ data, id, focusedID, handleFocusClick, handleClo
 	});
 
 	const handleKeyPress = (event) => {
-		if (event.keyCode === 187)
+		if (event.keyCode === 187 || event.keyCode === 61)
 			handleClick(increment);
-		else if (event.keyCode === 189)
+		else if (event.keyCode === 189 || event.keyCode === 173)
 			handleClick(increment * -1);
 	}
 
@@ -90,6 +92,18 @@ function FocusedTrackerMobile({ data, id, focusedID, handleFocusClick, handleClo
 		setOptionsUp(!optionsUp);
 	}
 
+	const onClickCaught = () => {
+		const shiny = new Object();
+
+		shiny.name = data.data.name.charAt(0).toUpperCase() + data.data.name.slice(1).split('-')[0];
+		shiny.encounters = count;
+		shiny.sprite = dropdownValue ? dropdownValue.value : data?.data?.sprites?.other?.showdown.front_shiny;
+		shiny.pcsprite = data?.data?.sprites?.versions["generation-viii"]?.icons?.front_default;
+		shiny.id = uuidv4();
+		addShiny(shiny)
+		handleCloseClick(id);
+	}
+
 	const handleDropdownChange = (value) => {
 		setDropdownValue(value);
 	}
@@ -101,7 +115,7 @@ function FocusedTrackerMobile({ data, id, focusedID, handleFocusClick, handleClo
 					<div className="w-full h-[7%] bg-slate-500 rounded-t-lg flex flex-row items-center justify-end">
 						<p className="text-white w-full pl-[10px] text-[6vw] pointer-events-none">{(data.data.name.charAt(0).toUpperCase() + data.data.name.slice(1)).split('-')[0] + " - " + data.data.id}</p>
 						<FaGear className="text-white h-[30px] w-[30px] mx-[1%] cursor-pointer hover:scale-110 transition-transform duration-100" onClick={handeClickOptions} />
-						{id === focusedID ? <FaEye className="text-white h-[30px] w-[30px] mx-[1%] cursor-pointer hover:scale-110 transition-transform duration-100" onClick={() => handleFocusClick(id)} />
+						{focusedID.indexOf(id) > -1 ? <FaEye className="text-white h-[30px] w-[30px] mx-[1%] cursor-pointer hover:scale-110 transition-transform duration-100" onClick={() => handleFocusClick(id)} />
 							: <FaEyeSlash className="text-white h-[30px] w-[30px] mx-[1%] cursor-pointer hover:scale-110 transition-transform duration-100" onClick={() => handleFocusClick(id)} />}
 						<FaTrashCan className="text-white h-[25px] w-[25px] mr-[2%] ml-[1%] cursor-pointer hover:scale-110 transition-transform duration-100" onClick={() => handleCloseClick(id)} />
 					</div>
@@ -117,7 +131,7 @@ function FocusedTrackerMobile({ data, id, focusedID, handleFocusClick, handleClo
 									<button className="text-[20vw] mr-[2%] z-10 hover:scale-110 transition-transform duration-100" onClick={() => handleClick(increment)}>+</button>
 								</div>
 							</div> :
-							<div className="w-full h-full flex flex-col justify-start">
+							<div className="w-full h-full flex flex-col justify-start items-center">
 								<label className="text-white flex flex-row justify-between w-full h-[7%] mb-[4%]">
 									<p className="text-[6vw] w-[33%]">Increment :</p>
 									<input type="number" value={increment} onChange={handleChangeIncrement} className="ml-[5%] w-[65%] text-[6vw] bg-transparent border-2 border-white rounded-lg text-center outline-none hover:bg-white focus:bg-white hover:text-black focus:text-black transition-color duration-300" />
@@ -132,6 +146,17 @@ function FocusedTrackerMobile({ data, id, focusedID, handleFocusClick, handleClo
 										<Dropdown options={getDropdownOptions(data)} value={dropdownValue} onChange={handleDropdownChange} />
 									</div>
 								</label> : null}
+								<button className="mt-[5%] text-white border-2 border-white rounded-lg w-[40%] h-[10%] flex flex-row justify-center items-center hover:bg-white focus:bg-white hover:text-black focus:text-black transition-color duration-300" 
+										onClick={() => { 
+											onClickCaught() 
+										handleFocusClick(id)
+										}
+								}>
+									<p>
+										CAUGHT !									
+									</p>
+									<TbPokeball className="text-[5vw] ml-[5%]"/>
+								</button>
 							</div>
 						}
 					</div>

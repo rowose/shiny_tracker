@@ -29,9 +29,6 @@ function Tracker ({data, id, focusedID, addShiny, handleFocusClick, handleCloseC
 		return () => window.removeEventListener("keydown", handleKeyPress, true);
 	}, [count, focusedID, position, dropdownValue, lockPosition])
 
-	console.log(data);
-
-
 	const getDropdownOptions = ((data) => {
 		let ret = [];
 
