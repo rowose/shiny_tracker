@@ -50,7 +50,7 @@ function TrackersPage({trackersData, removeTracker, setData, addShiny, offsetY})
 	return (
 		<div className="w-screen lg:h-[92%] h-[90%] lg:mt-[0%] mt-[2%]">
 			<BrowserView>
-						{trackers}
+				{trackers}
 			</BrowserView>
 			<MobileView>
 				{trackerFocused.length > 0  ?
