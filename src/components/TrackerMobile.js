@@ -126,9 +126,9 @@ function TrackerMobile ({data, id, addShiny, focusedID, handleFocusClick, handle
 							<div className="w-full h-[85%] bg-no-repeat bg-center bg-contain z-0 scale-110 pointer-events-none origin-bottom" style={{ backgroundImage: `url(${dropdownValue ? dropdownValue.value : data?.data?.sprites?.other?.showdown.front_shiny}` }}></div>
 								: <div className="w-full h-[85%] bg-no-repeat bg-center bg-contain z-0  pointer-events-none origin-bottom" style={{ backgroundImage: `url(${MissingPokemon}` }}></div>}
 							<div className="w-full flex flex-row text-white">
-								<button className="lg:text-5xl text-[6vw] z-10 hover:scale-110 transition-transform duration-100" onClick={() => handleClick(increment * -1)}>-</button>
-								<p className="text-white w-full lg:text-5xl text-[6vw] text-center z-10 pointer-events-none">{count}</p>
-								<button className="lg:text-5xl text-[6vw] z-10 hover:scale-110 transition-transform duration-100" onClick={() => handleClick(increment)}>+</button>
+								<button className="lg:text-5xl text-[6vw] hover:scale-110 transition-transform duration-100" onClick={() => handleClick(increment * -1)}>-</button>
+								<p className="text-white w-full lg:text-5xl text-[6vw] text-center pointer-events-none">{count}</p>
+								<button className="lg:text-5xl text-[6vw] hover:scale-110 transition-transform duration-100" onClick={() => handleClick(increment)}>+</button>
 							</div>
 						</div> :
 						<div className="w-full h-full flex flex-col justify-start items-center">

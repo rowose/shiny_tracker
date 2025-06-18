@@ -48,7 +48,7 @@ function TrackersPage({trackersData, removeTracker, setData, addShiny, offsetY})
 	})
 
 	return (
-		<div className="w-screen lg:h-[92%] h-[90%] lg:mt-[0%] mt-[2%]">
+		<div className="w-screen lg:h-[92%] h-[90%] lg:mt-[0%] mt-[2%] text-red-500">
 			<BrowserView>
 				{trackers}
 			</BrowserView>
